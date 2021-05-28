@@ -1,11 +1,71 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Pago
+ * 
+ * @property int $id
+ * @property string $codigo_barra
+ * @property int $servicio
+ * @property int $cliente
+ * @property float $descuento
+ * @property float $total
+ * @property string $periodo
+ * @property string|null $usuario
+ * @property Carbon|null $fecha_commit
+ * @property Carbon|null $hora_commit
+ * @property int|null $estatus
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * 
+ *
+ * @package App\Models
+ */
 class Pago extends Model
 {
-    use HasFactory;
+	protected $table = 'pagos';
+
+	protected $casts = [
+		'servicio' => 'int',
+		'cliente' => 'int',
+		'descuento' => 'float',
+		'total' => 'float',
+		'estatus' => 'int'
+	];
+
+	protected $dates = [
+		'fecha_commit',
+		'hora_commit'
+	];
+
+	protected $fillable = [
+		'codigo_barra',
+		'servicio',
+		'cliente',
+		'descuento',
+		'total',
+		'periodo',
+		'usuario',
+		'fecha_commit',
+		'hora_commit',
+		'estatus'
+	];
+
+	public function cliente()
+	{
+		return $this->belongsTo(Cliente::class, 'cliente');
+	}
+
+	public function servicio()
+	{
+		return $this->belongsTo(Servicio::class, 'servicio');
+	}
 }

@@ -14,7 +14,8 @@ class ReciboController extends Controller
      */
     public function index()
     {
-        //
+        $recibos = Recibo::all();
+        return view('recibo.index')->with('recibos',$recibos);
     }
 
     /**
